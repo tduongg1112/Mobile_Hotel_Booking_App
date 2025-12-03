@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "89933157996",
+    "project_id": "hotel-booking-app-54850",
+    "storage_bucket": "hotel-booking-app-54850.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89933157996:android:dd19c26d149276eccb2a49",
+        "android_client_info": {
+          "package_name": "com.example.hotel_booking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvcQ_yY5puB4gW9mB3M9nGrq6VO-gTr90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89933157996:android:c5483d46d88118f8cb2a49",
+        "android_client_info": {
+          "package_name": "com.example.hotelbookingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvcQ_yY5puB4gW9mB3M9nGrq6VO-gTr90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89933157996:android:be9a39754f49acd0cb2a49",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvcQ_yY5puB4gW9mB3M9nGrq6VO-gTr90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
