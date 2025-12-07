@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <!-- HEADER: Avatar + Greeting + Notification -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imgAvatar"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:src="@drawable/ic_profile_sample"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:background="@drawable/bg_circle_white"-->
+<!--                android:padding="2dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutGreeting"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toEndOf="@id/imgAvatar"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                android:layout_marginStart="12dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHello"-->
+<!--                    android:text="Hello, Sejal"-->
+<!--                    android:textColor="@color/grey_dark"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvFindHotel"-->
+<!--                    android:text="Let’s Find Best Hotel"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+
+            <ImageView
+                android:id="@+id/btnNotification"
+                android:layout_width="32dp"
+                android:layout_height="34dp"
+                android:src="@drawable/ic_notification"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- SEARCH BAR -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/grey_dark" />
+
+                <EditText
+                    android:id="@+id/edtSearch"
+                    android:hint="Search for hotel"
+                    android:background="@android:color/transparent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_light"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- BANNER CAM -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <ImageView
+                android:id="@+id/imgBanner"
+                android:layout_width="match_parent"
+                android:layout_height="227dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_banner" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- POPULAR HOTELS HEADER -->
+        <!-- POPULAR HOTELS HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/tvPopularTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Popular Hotel"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvSeeMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See More"
+                android:textSize="14sp"
+                android:textColor="@color/primary_blue" />
+
+        </LinearLayout>
+
+
+        <!-- POPULAR HOTEL LIST (RecyclerView) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPopularHotels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+<!--    &lt;!&ndash; Bottom Navigation &ndash;&gt;-->
+<!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--    android:id="@+id/bottomNav"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="70dp"-->
+<!--    android:layout_gravity="bottom"-->
+<!--    app:menu="@menu/menu_bottom_nav"-->
+<!--    app:itemIconTint="@color/nav_selector"-->
+<!--    app:itemTextColor="@color/nav_selector"-->
+<!--    android:background="@drawable/bg_bottom_nav_round"/>-->
+
