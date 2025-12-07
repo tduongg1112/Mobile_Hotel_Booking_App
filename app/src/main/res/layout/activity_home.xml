@@ -18,45 +18,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgAvatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_profile_sample"
-                android:scaleType="centerCrop"
-                android:background="@drawable/bg_circle_white"
-                android:padding="2dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+<!--            <ImageView-->
+<!--                android:id="@+id/imgAvatar"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:src="@drawable/ic_profile_sample"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:background="@drawable/bg_circle_white"-->
+<!--                android:padding="2dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"/>-->
 
-            <LinearLayout
-                android:id="@+id/layoutGreeting"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/imgAvatar"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="12dp">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutGreeting"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintStart_toEndOf="@id/imgAvatar"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                android:layout_marginStart="12dp">-->
 
-                <TextView
-                    android:id="@+id/tvHello"
-                    android:text="Hello, Sejal"
-                    android:textColor="@color/grey_dark"
-                    android:textSize="14sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHello"-->
+<!--                    android:text="Hello, Sejal"-->
+<!--                    android:textColor="@color/grey_dark"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/tvFindHotel"
-                    android:text="Let’s Find Best Hotel"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/tvFindHotel"-->
+<!--                    android:text="Let’s Find Best Hotel"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
 
             <ImageView
                 android:id="@+id/btnNotification"
@@ -164,14 +164,14 @@
 
 </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Navigation -->
-<com.google.android.material.bottomnavigation.BottomNavigationView
-    android:id="@+id/bottomNav"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_gravity="bottom"
-    app:menu="@menu/menu_bottom_nav"
-    app:itemIconTint="@color/nav_selector"
-    app:itemTextColor="@color/nav_selector"
-    android:background="@drawable/bg_bottom_nav_round"/>
+<!--    &lt;!&ndash; Bottom Navigation &ndash;&gt;-->
+<!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--    android:id="@+id/bottomNav"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="70dp"-->
+<!--    android:layout_gravity="bottom"-->
+<!--    app:menu="@menu/menu_bottom_nav"-->
+<!--    app:itemIconTint="@color/nav_selector"-->
+<!--    app:itemTextColor="@color/nav_selector"-->
+<!--    android:background="@drawable/bg_bottom_nav_round"/>-->
 
