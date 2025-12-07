@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Head (circle) -->
+    <path
+        android:fillColor="#CFC9CE"
+        android:pathData="M12,6
+            m-3,0
+            a3,3 0 1,0 6,0
+            a3,3 0 1,0 -6,0" />
+
+    <!-- Body (oval) -->
+    <path
+        android:fillColor="#8F888F"
+        android:pathData="M12,14
+            c-4,0 -6,1.5 -6,3
+            c0,1.5 2,3 6,3
+            c4,0 6,-1.5 6,-3
+            c0,-1.5 -2,-3 -6,-3z" />
+</vector>

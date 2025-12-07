@@ -1,0 +1,38 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Outer Circle -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#8F8B97"
+        android:strokeWidth="1.6"
+        android:pathData="M12,2
+            a10,10 0 1,0 0,20
+            a10,10 0 1,0 0,-20" />
+
+    <!-- Compass diamond -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#8F8B97"
+        android:strokeWidth="1.6"
+        android:strokeLineJoin="round"
+        android:pathData="M12,8
+            L15.5,12
+            L12,16
+            L8.5,12
+            Z" />
+
+    <!-- Inner stroke (to mimic thin interior shape) -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#8F8B97"
+        android:strokeWidth="1"
+        android:pathData="M12,10
+            l2,2
+            l-2,2
+            l-2,-2
+            Z" />
+</vector>
