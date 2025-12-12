@@ -1,4 +1,4 @@
-# 🏨 ỨNG DỤNG ĐẶT PHÒNG KHÁCH SẠN – HOTEL BOOKING APP
+# 🏨 ỨNG DỤNG ĐẶT PHÒNG KHÁCH SẠN – HOTEL BOOKING APP (Mobile)
 
 ---
 
@@ -110,4 +110,4 @@ Trong phạm vi đồ án, hệ thống phân quyền cơ bản:
 ---
 
 ### 7. Hình ảnh Demo ứng dụng
-* https://drive.google.com/drive/folders/1ZSpbHQCZrGLEnjBijI9pfRz63lcOXwxC?usp=sharing
+https://drive.google.com/drive/folders/1ZSpbHQCZrGLEnjBijI9pfRz63lcOXwxC?usp=sharing
