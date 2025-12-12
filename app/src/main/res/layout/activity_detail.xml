@@ -67,7 +67,11 @@
                     android:id="@+id/tv_detail_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+<<<<<<< HEAD
+                    android:text="4.5 ⭐"
+=======
                     android:text="4.5 ★"
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
                     android:textColor="#FF9800"
                     android:textStyle="bold"
                     android:textSize="16sp"/>
@@ -86,7 +90,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+<<<<<<< HEAD
+                android:text="Description"
+=======
                 android:text="Mô tả"
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"/>
@@ -103,7 +111,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+<<<<<<< HEAD
+                android:text="Choose Room"
+=======
                 android:text="Phòng"
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"/>
@@ -119,7 +131,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+<<<<<<< HEAD
+                android:text="Reviews"
+=======
                 android:text="Đánh giá"
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"/>
