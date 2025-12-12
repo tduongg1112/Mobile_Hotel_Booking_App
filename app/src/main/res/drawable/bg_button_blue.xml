@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#2196F3"/> <!-- Màu xanh Figma -->
-    <corners android:radius="30dp"/> <!-- Bo tròn mạnh -->
+    <!-- ĐÃ ĐỔI: Màu xanh mới #003AD2 -->
+    <solid android:color="#003AD2"/>
+    <corners android:radius="30dp"/>
 </shape>

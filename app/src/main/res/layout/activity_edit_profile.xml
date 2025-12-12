@@ -33,26 +33,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Profile"
+                    android:text="Chỉnh sửa hồ sơ"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="#000000"
                     android:layout_centerInParent="true"/>
 
+                <!-- Nút Lưu (Màu xanh mới) -->
                 <TextView
                     android:id="@+id/btn_save_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save"
+                    android:text="Lưu"
                     android:textSize="16sp"
-                    android:textColor="#2196F3"
+                    android:textColor="#003AD2"
                     android:textStyle="bold"
                     android:padding="8dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
-            <!-- Avatar & Upload Photo Text -->
+            <!-- Avatar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +61,6 @@
                 android:orientation="vertical"
                 android:layout_marginBottom="32dp">
 
-                <!-- ĐÃ SỬA: Thêm ID img_edit_avatar -->
                 <ImageView
                     android:id="@+id/img_edit_avatar"
                     android:layout_width="100dp"
@@ -70,22 +70,21 @@
                     android:padding="2dp"
                     android:scaleType="centerCrop"/>
 
-                <!-- ĐÃ SỬA: Thêm ID tv_change_photo -->
+                <!-- Chữ Đổi ảnh (Màu xanh mới) -->
                 <TextView
                     android:id="@+id/tv_change_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Change Photo"
-                    android:textColor="#2196F3"
+                    android:text="Đổi ảnh đại diện"
+                    android:textColor="#003AD2"
                     android:textStyle="bold"
                     android:layout_marginTop="12dp"/>
             </LinearLayout>
 
-            <!-- Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="Họ và Tên"
                 android:textSize="12sp"
                 android:textColor="#888888"/>
             <EditText
@@ -100,11 +99,10 @@
                 android:layout_marginBottom="24dp"
                 android:inputType="textPersonName"/>
 
-            <!-- Email (Read only) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email (Read only)"
+                android:text="Email (Không thể sửa)"
                 android:textSize="12sp"
                 android:textColor="#888888"/>
             <EditText
@@ -119,11 +117,10 @@
                 android:layout_marginBottom="24dp"
                 android:enabled="false"/>
 
-            <!-- Phone -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number"
+                android:text="Số điện thoại"
                 android:textSize="12sp"
                 android:textColor="#888888"/>
             <EditText
@@ -138,12 +135,11 @@
                 android:layout_marginBottom="40dp"
                 android:inputType="phone"/>
 
-            <!-- Nút Cancel -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
+                android:text="Hủy"
                 android:background="@drawable/bg_button_blue"
                 android:backgroundTint="#CCCCCC"
                 android:textColor="#000000"

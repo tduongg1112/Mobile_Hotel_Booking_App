@@ -41,14 +41,13 @@ public class LoginActivity extends AppCompatActivity {
             String password = etPassword.getText().toString().trim();
 
             if (TextUtils.isEmpty(email)) {
-                etEmail.setError("Email is required");
+                etEmail.setError("Vui lòng nhập Email");
                 return;
             }
             if (TextUtils.isEmpty(password)) {
-                etPassword.setError("Password is required");
+                etPassword.setError("Vui lòng nhập Mật khẩu");
                 return;
             }
-
             performLogin(email, password);
         });
 
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
 
                         // Chuyển sang HomeActivity thay vì Profile
                         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Lỗi đăng nhập: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

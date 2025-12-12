@@ -6,45 +6,41 @@
     android:padding="24dp"
     android:background="#FFFFFF">
 
-    <!-- Nút Back -->
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:tint="#000000"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
+        android:text="Đăng ký"
         android:textSize="32sp"
         android:textStyle="bold"
         android:textColor="#000000"
         android:layout_marginBottom="40dp"/>
 
-    <!-- Field Name -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="Họ và Tên"
         android:textSize="12sp"
         android:textColor="#888888"/>
     <EditText
         android:id="@+id/et_signup_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Name"
+        android:hint="Nhập tên của bạn"
         android:inputType="textPersonName"
         android:paddingTop="8dp"
         android:paddingBottom="16dp"
         android:background="@drawable/bg_input_underline"
         android:layout_marginBottom="24dp"/>
 
-    <!-- Field Email -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,37 +51,35 @@
         android:id="@+id/et_signup_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Email"
+        android:hint="Nhập email"
         android:inputType="textEmailAddress"
         android:paddingTop="8dp"
         android:paddingBottom="16dp"
         android:background="@drawable/bg_input_underline"
         android:layout_marginBottom="24dp"/>
 
-    <!-- Field Password -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="Mật khẩu"
         android:textSize="12sp"
         android:textColor="#888888"/>
     <EditText
         android:id="@+id/et_signup_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your Password"
+        android:hint="Nhập mật khẩu"
         android:inputType="textPassword"
         android:paddingTop="8dp"
         android:paddingBottom="16dp"
         android:background="@drawable/bg_input_underline"
         android:layout_marginBottom="40dp"/>
 
-    <!-- Button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_signup_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="Tạo tài khoản"
         android:background="@drawable/bg_button_blue"
         android:textColor="#FFFFFF"
         android:textAllCaps="false"
@@ -102,16 +96,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have account? "
+            android:text="Đã có tài khoản? "
             android:textColor="#888888"/>
 
         <TextView
             android:id="@+id/tv_login_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log In"
+            android:text="Đăng nhập"
             android:textStyle="bold"
-            android:textColor="#FF5722"/>
+            android:textColor="#FF5722"
+            android:padding="8dp"/>
     </LinearLayout>
 
 </LinearLayout>
