@@ -1,6 +1,17 @@
 package com.example.hotelbookingapp.adapters;
 
 import android.content.Context;
+<<<<<<< HEAD
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.hotelbookingapp.R;
+import com.example.hotelbookingapp.models.Room; // Nhớ có model Room
+import java.util.List;
+=======
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +35,18 @@ import com.example.hotelbookingapp.utils.GlideUtils; // Nếu có dùng
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
 
     private Context context;
     private List<Room> roomList;
+<<<<<<< HEAD
+
+    public RoomAdapter(Context context, List<Room> roomList) {
+        this.context = context;
+        this.roomList = roomList;
+=======
     private Hotel currentHotel; // Đổi từ String sang Hotel Object để truyền dữ liệu đầy đủ
 
     // Cập nhật Constructor nhận Hotel Object
@@ -36,17 +54,26 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         this.context = context;
         this.roomList = roomList;
         this.currentHotel = hotel;
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
     }
 
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<<<<<<< HEAD
+        // Tạm thời dùng layout simple_list_item_1 của android nếu chưa có layout item_room
+        View view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false);
+=======
         View view = LayoutInflater.from(context).inflate(R.layout.item_room_detail, parent, false);
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
         return new RoomViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
+<<<<<<< HEAD
+        // Logic bind data
+=======
         Room room = roomList.get(position);
 
         holder.tvRoomName.setText(room.getName());
@@ -106,6 +133,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
             context.startActivity(intent);
         });
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
     }
 
     @Override
@@ -114,6 +142,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
+<<<<<<< HEAD
+        public RoomViewHolder(@NonNull View itemView) {
+            super(itemView);
+=======
         TextView tvRoomName, tvPrice, tvCapacity, tvFeatures;
         ImageView imgRoom;
         Button btnSelectRoom; // Nút bấm
@@ -128,6 +160,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
             // Đảm bảo ID này đúng với file item_room_detail.xml
             btnSelectRoom = itemView.findViewById(R.id.btn_select_room);
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
         }
     }
 }
