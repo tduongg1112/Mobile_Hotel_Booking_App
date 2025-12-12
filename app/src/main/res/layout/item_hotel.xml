@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-<<<<<<< HEAD
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
-=======
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,27 +9,10 @@
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
     app:cardBackgroundColor="@android:color/white">
->>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/img_hotel_thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-=======
         android:orientation="horizontal"
         android:padding="12dp">
 
@@ -62,25 +38,12 @@
             android:layout_marginStart="16dp"
             android:orientation="vertical"
             android:gravity="center_vertical">
->>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
 
             <TextView
                 android:id="@+id/tv_hotel_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tên Khách Sạn"
-<<<<<<< HEAD
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_hotel_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Địa điểm"
-                android:textColor="#757575" />
-=======
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -103,17 +66,12 @@
                     android:textColor="#757575"
                     android:maxLines="1" />
             </LinearLayout>
->>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
-                android:layout_marginTop="8dp"
-=======
                 android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
->>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
                 android:orientation="horizontal">
 
                 <TextView
@@ -121,17 +79,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-<<<<<<< HEAD
-                    android:text="500.000 VNĐ"
-                    android:textColor="#FF0000"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_hotel_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4.5 ⭐" />
-=======
                     android:text="$120"
                     android:textColor="#2196F3"
                     android:textStyle="bold"
@@ -160,7 +107,6 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
->>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
