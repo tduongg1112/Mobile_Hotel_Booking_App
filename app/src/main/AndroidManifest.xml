@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,28 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HotelBookingApp">
-
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <activity android:name=".activities.BookingSuccessActivity" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-<<<<<<< HEAD
-=======
-        <activity android:name=".activities.RoomDetailActivity"
-            android:exported="false"/>
-
-        <activity android:name=".activities.BookingActivity"
-            android:exported="false"/>
-
->>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
-        <activity android:name=".activities.SearchActivity" />
-        <activity android:name=".activities.DetailActivity" />
-
     </application>
 
 </manifest>
