@@ -34,10 +34,17 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
+<<<<<<< HEAD
     // QUAN TRỌNG: RecyclerView (Sửa lỗi XML không hiện list)
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
     // Firebase (BOM quản lý version)
+=======
+    // RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+
+    // Firebase
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
     implementation platform('com.google.firebase:firebase-bom:33.1.0')
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-auth'
@@ -45,4 +52,15 @@ dependencies {
 
     // Load ảnh
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+<<<<<<< HEAD
+=======
+
+    // --- PHẦN BỔ SUNG ĐỂ SỬA LỖI TEST (ExampleUnitTest) ---
+    // Thư viện JUnit cho Unit Test (Sửa lỗi org.junit does not exist)
+    testImplementation 'junit:junit:4.13.2'
+
+    // Thư viện cho Android Test (Test UI) - Nên thêm luôn để tránh lỗi sau này
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
 }

@@ -23,6 +23,15 @@
             </intent-filter>
         </activity>
 
+<<<<<<< HEAD
+=======
+        <activity android:name=".activities.RoomDetailActivity"
+            android:exported="false"/>
+
+        <activity android:name=".activities.BookingActivity"
+            android:exported="false"/>
+
+>>>>>>> 45172f9a3310fc6720bdf3d0e0e59d8d1d28e484
         <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.DetailActivity" />
 
