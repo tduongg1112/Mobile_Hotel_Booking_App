@@ -1,4 +1,4 @@
-package com.example.hotelbookingapp.adapters;
-
-public class BookingAdapter {
-}
+//package com.example.hotelbookingapp.adapters;
+//
+//public class BookingAdapter {
+//}
