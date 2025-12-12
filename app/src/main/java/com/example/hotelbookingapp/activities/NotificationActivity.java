@@ -15,6 +15,8 @@ import com.example.hotelbookingapp.adapters.NotificationAdapter;
 import com.example.hotelbookingapp.firebase.FirebaseCallback;
 import com.example.hotelbookingapp.firebase.NotificationManager;
 import com.example.hotelbookingapp.models.NotificationItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class NotificationActivity extends AppCompatActivity {
     private RecyclerView recyclerNoti;
     private NotificationManager notiManager;
     private ImageView btnBack;
-    private TextView tvEmpty; // Hiện khi không có thông báo
+    private TextView tvEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +39,23 @@ public class NotificationActivity extends AppCompatActivity {
         recyclerNoti.setLayoutManager(new LinearLayoutManager(this));
         notiManager = new NotificationManager();
 
-        btnBack.setOnClickListener(v -> finish()); // Quay lại
+        btnBack.setOnClickListener(v -> finish());
 
-        loadNotifications();
+        loadNotificationsFromFirebase();
     }
 
-    private void loadNotifications() {
-        // LƯU Ý: Thay ID này bằng ID thật của User đang đăng nhập
-        String currentUserId = "user_review_0001";
+    private void loadNotificationsFromFirebase() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        notiManager.getNotifications(currentUserId, new FirebaseCallback<List<NotificationItem>>() {
+        // Nếu chưa đăng nhập thì không tải được thông báo cá nhân
+        if (currentUser == null) {
+            tvEmpty.setText("Vui lòng đăng nhập để xem thông báo");
+            tvEmpty.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        // Lấy thông báo theo UID thật
+        notiManager.getNotifications(currentUser.getUid(), new FirebaseCallback<List<NotificationItem>>() {
             @Override
             public void onSuccess(List<NotificationItem> result) {
                 if (result.isEmpty()) {
@@ -55,6 +64,7 @@ public class NotificationActivity extends AppCompatActivity {
                 } else {
                     tvEmpty.setVisibility(View.GONE);
                     recyclerNoti.setVisibility(View.VISIBLE);
+
                     NotificationAdapter adapter = new NotificationAdapter(result);
                     recyclerNoti.setAdapter(adapter);
                 }
@@ -62,7 +72,7 @@ public class NotificationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String message) {
-                Toast.makeText(NotificationActivity.this, "Lỗi: " + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationActivity.this, "Lỗi tải thông báo: " + message, Toast.LENGTH_SHORT).show();
             }
         });
     }
