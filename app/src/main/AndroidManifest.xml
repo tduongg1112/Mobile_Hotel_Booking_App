@@ -16,10 +16,21 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <activity android:name=".activities.BookingSuccessActivity" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.WelcomeActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.EditProfileActivity" />
+        <activity android:name=".activities.MyBookingActivity" />
+        <activity android:name=".activities.BookingActivity" />
+        <activity android:name=".activities.BookingSuccessActivity" />
+        <activity android:name=".activities.CancelBookingActivity" />
+        <activity android:name=".activities.NotificationActivity" />
+        <activity android:name=".activities.ReviewActivity" />
     </application>
 
 </manifest>
