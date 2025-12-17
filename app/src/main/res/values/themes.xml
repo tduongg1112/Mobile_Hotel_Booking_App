@@ -9,19 +9,5 @@
     <style name="Theme.HotelBookingApp" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-    <style name="CalenderViewCustom">
-        <item name="android:dateTextAppearance">@style/CalenderViewDateCustom</item>
-        <item name="android:weekDayTextAppearance">@style/CalenderViewWeekCustom</item>
-        <item name="colorAccent">#2E4EFF</item> </style>
 
-    <style name="CalenderViewDateCustom">
-        <item name="android:textColor">#333333</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="CalenderViewWeekCustom">
-        <item name="android:textColor">#888888</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 </resources>
