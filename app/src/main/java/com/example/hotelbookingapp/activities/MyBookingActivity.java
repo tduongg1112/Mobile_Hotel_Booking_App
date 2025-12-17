@@ -100,7 +100,7 @@ public class MyBookingActivity extends AppCompatActivity implements BookingAdapt
     private void setupRecyclerView() {
         mListBooking = new ArrayList<>();
         // Nếu Adapter báo lỗi constructor, hãy kiểm tra lại file BookingAdapter
-        bookingAdapter = new BookingAdapter(mListBooking, this);
+        bookingAdapter = new BookingAdapter(this, mListBooking, this);
         rvBookings.setLayoutManager(new LinearLayoutManager(this));
         rvBookings.setAdapter(bookingAdapter);
     }
