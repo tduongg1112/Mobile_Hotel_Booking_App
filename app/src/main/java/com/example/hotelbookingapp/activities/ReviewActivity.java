@@ -20,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.adapters.ReviewAdapter;
+import com.example.hotelbookingapp.firebase.FirebaseCallback;
+import com.example.hotelbookingapp.firebase.ReviewManager;
 import com.example.hotelbookingapp.models.Review;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,8 +43,11 @@ public class ReviewActivity extends AppCompatActivity {
     private List<Review> reviewList;
     private FirebaseFirestore db;
     private String currentHotelId;
+    private ReviewManager reviewManager;
+    private String currentHotelId; // ID khách sạn nhận từ Intent
 
     // Header thống kê
+    // UI Components
     private TextView tvAvgRating, tvTotalReviews;
     private RatingBar ratingBarHeader;
     private ProgressBar prog5, prog4, prog3, prog2, prog1;
@@ -54,10 +60,12 @@ public class ReviewActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        // 1. Nhận dữ liệu từ màn hình trước (DetailActivity)
         if (getIntent().hasExtra("HOTEL_ID")) {
             currentHotelId = getIntent().getStringExtra("HOTEL_ID");
         } else {
             currentHotelId = "hotel_001";
+            currentHotelId = "hotel_001"; // Mặc định nếu null (phòng hờ)
         }
 
         initViews();
@@ -66,7 +74,15 @@ public class ReviewActivity extends AppCompatActivity {
 
         // Nút thêm review -> Kiểm tra booking trước
         findViewById(R.id.btn_add_review).setOnClickListener(v -> checkBookingAndReview());
+        reviewManager = new ReviewManager();
 
+        // 2. Tải dữ liệu thật từ Firebase
+        loadReviewsFromFirebase();
+
+        // 3. Xử lý nút Thêm Review
+        findViewById(R.id.btn_add_review).setOnClickListener(v -> showAddReviewDialog());
+
+        // 4. Xử lý nút Back
         findViewById(R.id.btn_back_review).setOnClickListener(v -> finish());
     }
 
@@ -76,6 +92,7 @@ public class ReviewActivity extends AppCompatActivity {
         tvTotalReviews = findViewById(R.id.tv_total_reviews);
         ratingBarHeader = findViewById(R.id.rating_bar_header);
 
+        // Biểu đồ
         prog5 = findViewById(R.id.progress_5_star);
         prog4 = findViewById(R.id.progress_4_star);
         prog3 = findViewById(R.id.progress_3_star);
@@ -95,6 +112,16 @@ public class ReviewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
+    }
+
+    private void loadReviewsFromFirebase() {
+        // Gọi Manager để lấy dữ liệu thật
+        reviewManager.getReviews(currentHotelId, new FirebaseCallback<List<Review>>() {
+            @Override
+            public void onSuccess(List<Review> result) {
+                // Đổ dữ liệu vào Adapter
+                adapter = new ReviewAdapter(result);
+                recyclerView.setAdapter(adapter);
 
     private void loadReviews() {
         db.collection("reviews")
@@ -113,10 +140,21 @@ public class ReviewActivity extends AppCompatActivity {
                         calculateAndShowStats(reviewList);
                     }
                 });
+                // Tính toán thống kê thật
+                calculateAndShowStats(result);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Toast.makeText(ReviewActivity.this, "Lỗi tải review: " + message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void calculateAndShowStats(List<Review> list) {
         if (list == null || list.isEmpty()) {
+    private void calculateAndShowStats(List<Review> reviewList) {
+        if (reviewList == null || reviewList.isEmpty()) {
             tvTotalReviews.setText("(0 đánh giá)");
             tvAvgRating.setText("0.0");
             ratingBarHeader.setRating(0);
@@ -126,6 +164,7 @@ public class ReviewActivity extends AppCompatActivity {
 
         float totalRating = 0;
         int c5 = 0, c4 = 0, c3 = 0, c2 = 0, c1 = 0;
+        int count5 = 0, count4 = 0, count3 = 0, count2 = 0, count1 = 0;
 
         for (Review r : list) {
             totalRating += r.getRating();
@@ -135,11 +174,22 @@ public class ReviewActivity extends AppCompatActivity {
             else if (star == 3) c3++;
             else if (star == 2) c2++;
             else if (star == 1) c1++;
+        for (Review r : reviewList) {
+            float rating = r.getRating();
+            totalRating += rating;
+            int star = Math.round(rating);
+            if (star == 5) count5++;
+            else if (star == 4) count4++;
+            else if (star == 3) count3++;
+            else if (star == 2) count2++;
+            else if (star == 1) count1++;
         }
 
         int total = list.size();
+        int total = reviewList.size();
         float avg = totalRating / total;
 
+        // Cập nhật Header
         tvAvgRating.setText(String.format(Locale.getDefault(), "%.1f", avg));
         ratingBarHeader.setRating(avg);
         tvTotalReviews.setText(String.format(Locale.getDefault(), "(%d đánh giá)", total));
@@ -148,6 +198,12 @@ public class ReviewActivity extends AppCompatActivity {
 
         // Cập nhật rating trung bình vào bảng hotel (nếu cần)
         updateHotelRating(avg, total);
+        // Cập nhật biểu đồ
+        updateProgressBar(prog5, tvPerc5, count5, total);
+        updateProgressBar(prog4, tvPerc4, count4, total);
+        updateProgressBar(prog3, tvPerc3, count3, total);
+        updateProgressBar(prog2, tvPerc2, count2, total);
+        updateProgressBar(prog1, tvPerc1, count1, total);
     }
 
     private void updateProgressBar(int total, int c5, int c4, int c3, int c2, int c1) {
@@ -159,15 +215,23 @@ public class ReviewActivity extends AppCompatActivity {
     }
 
     private void setBar(ProgressBar pb, TextView tv, int count, int total) {
+    private void updateProgressBar(ProgressBar progressBar, TextView textView, int count, int total) {
         int percent = (total == 0) ? 0 : (int) (((float) count / total) * 100);
         pb.setProgress(percent);
         tv.setText(percent + "%");
+        progressBar.setProgress(percent);
+        textView.setText(String.format(Locale.getDefault(), "%d%%", percent));
     }
 
     private void checkBookingAndReview() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             Toast.makeText(this, "Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
+    private void showAddReviewDialog() {
+        // Kiểm tra đăng nhập trước khi cho viết review
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(this, "Vui lòng đăng nhập để viết đánh giá!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -223,6 +287,7 @@ public class ReviewActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(v -> {
             float rating = ratingBar.getRating();
             String comment = edtComment.getText().toString().trim();
+            String comment = edtComment.getText().toString();
 
             if (rating == 0) {
                 Toast.makeText(this, "Vui lòng chọn số sao!", Toast.LENGTH_SHORT).show();
@@ -233,13 +298,17 @@ public class ReviewActivity extends AppCompatActivity {
             String displayName = user.getDisplayName();
             if (displayName == null || displayName.isEmpty()) displayName = user.getEmail();
 
+            // Tạo object Review thật
             Review newReview = new Review(
                     currentHotelId,
                     user.getUid(),
                     displayName,
+                    currentUser.getUid(),
+                    currentUser.getDisplayName() != null ? currentUser.getDisplayName() : "Khách hàng",
                     rating,
                     comment,
                     new Date() // Sử dụng java.util.Date
+                    new Date()
             );
 
             db.collection("reviews").add(newReview)
@@ -250,6 +319,20 @@ public class ReviewActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Gửi thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
+            // Gửi lên Firebase thật
+            reviewManager.addReview(newReview, new FirebaseCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean result) {
+                    Toast.makeText(ReviewActivity.this, "Gửi thành công!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    loadReviewsFromFirebase(); // Tải lại danh sách để thấy review mới ngay lập tức
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    Toast.makeText(ReviewActivity.this, "Lỗi: " + message, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         dialog.show();
