@@ -3,7 +3,7 @@ package com.example.hotelbookingapp.models;
 import com.google.firebase.Timestamp;
 
 public class Booking {
-    private String bookingId;
+    private String bookingId; // Đây là ID của booking (Document ID từ Firestore)
     private String userId;
     private String hotelId;
     private String hotelName;
@@ -32,7 +32,12 @@ public class Booking {
         this.timestamp = timestamp;
     }
 
-    // --- Getter và Setter (Bắt buộc phải có để Firestore đọc/ghi) ---
+    // --- QUAN TRỌNG: Đã thêm getId và setId để khớp với MyBookingActivity ---
+    public String getId() { return bookingId; }
+    public void setId(String id) { this.bookingId = id; }
+    // -----------------------------------------------------------------------
+
+    // Giữ nguyên các getter/setter khác để Firebase hoạt động
     public String getBookingId() { return bookingId; }
     public void setBookingId(String bookingId) { this.bookingId = bookingId; }
 

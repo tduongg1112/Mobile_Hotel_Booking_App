@@ -9,4 +9,5 @@ public class Constants {
     public static final String FIELD_AMENITIES = "amenities";
     public static final String FIELD_RATING_AVERAGE = "ratingAverage";
     public static final String KEY_HOTEL_ID = "HOTEL_ID";
+    public static final String KEY_COLLECTION_USERS = "users";
 }

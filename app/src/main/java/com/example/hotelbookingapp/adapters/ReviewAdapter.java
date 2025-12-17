@@ -1,16 +1,23 @@
 package com.example.hotelbookingapp.adapters;
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.models.Review;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
@@ -25,7 +32,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Sử dụng layout item_review vừa tạo ở Bước 1
+        // Dùng layout item_review (CardView đẹp) của bạn
         View view = LayoutInflater.from(context).inflate(R.layout.item_review, parent, false);
         return new ReviewViewHolder(view);
     }
@@ -33,23 +40,33 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = reviewList.get(position);
+        if (review == null) return;
 
-        // Hiển thị tên người dùng
-        holder.tvUsername.setText(review.getUserName() != null ? review.getUserName() : "Ẩn danh");
+        // 1. Tên
+        holder.tvName.setText(review.getUserName() != null ? review.getUserName() : "Khách hàng");
 
-        // Hiển thị comment
+        // 2. Nội dung
         holder.tvComment.setText(review.getComment());
 
-        // Hiển thị rating
-        holder.tvRating.setText(review.getRating() + " ★");
+        // 3. Rating (Model là float -> RatingBar nhận float OK)
+        holder.ratingBar.setRating(review.getRating());
 
-        // Hiển thị ngày tháng (nếu có timestamp)
+        // 4. Ngày tháng (QUAN TRỌNG: Sửa lỗi tại đây)
         if (review.getTimestamp() != null) {
-            String date = DateFormat.format("dd/MM/yyyy", review.getTimestamp().toDate()).toString();
-            holder.tvDate.setText(date);
+            // Vì model dùng java.util.Date nên format trực tiếp
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            holder.tvDate.setText(sdf.format(review.getTimestamp()));
         } else {
             holder.tvDate.setText("");
         }
+
+        // 5. Avatar (Tạo avatar ngẫu nhiên theo tên)
+        String avatarUrl = "https://ui-avatars.com/api/?background=random&name=" + review.getUserName();
+        Glide.with(context)
+                .load(avatarUrl)
+                .circleCrop()
+                .placeholder(R.drawable.placeholder_image)
+                .into(holder.imgAvatar);
     }
 
     @Override
@@ -58,15 +75,18 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUsername, tvDate, tvRating, tvComment;
+        ImageView imgAvatar;
+        TextView tvName, tvDate, tvComment;
+        RatingBar ratingBar;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
-            // Ánh xạ ID từ file item_review.xml
-            tvUsername = itemView.findViewById(R.id.tv_review_username);
+            // Ánh xạ đúng ID trong item_review.xml của bạn
+            imgAvatar = itemView.findViewById(R.id.img_user_avatar);
+            tvName = itemView.findViewById(R.id.tv_user_name);
             tvDate = itemView.findViewById(R.id.tv_review_date);
-            tvRating = itemView.findViewById(R.id.tv_review_rating);
             tvComment = itemView.findViewById(R.id.tv_review_comment);
+            ratingBar = itemView.findViewById(R.id.rating_bar_item);
         }
     }
 }
