@@ -3,19 +3,19 @@ package com.example.hotelbookingapp.models;
 import java.util.Date;
 
 public class Review {
-    private String id;          // ID của document (để sau này xóa/sửa)
-    private String hotelId;     // Review này thuộc khách sạn nào
-    private String userId;      // ID người dùng
-    private String userName;    // Tên người dùng (Lưu cứng để đỡ phải query lại bảng User)
-    private float rating;       // Số sao (1.0 - 5.0)
-    private String comment;     // Nội dung đánh giá
-    private Date timestamp;     // Thời gian đăng (Dùng java.util.Date cho dễ xử lý)
+    private String id;
+    private String hotelId;
+    private String userId;
+    private String userName;
+    private float rating;       // Dùng float để lưu 4.5 sao
+    private String comment;
+    private Date timestamp;     // Dùng Date chuẩn Java
 
-    // ⚠️ QUAN TRỌNG: Phải có Constructor rỗng để Firestore map dữ liệu về
+    // 1. Constructor rỗng (Bắt buộc cho Firebase)
     public Review() {
     }
 
-    // Constructor đầy đủ (Dùng khi bạn tạo Review mới để đẩy lên)
+    // 2. Constructor đầy đủ
     public Review(String hotelId, String userId, String userName, float rating, String comment, Date timestamp) {
         this.hotelId = hotelId;
         this.userId = userId;
@@ -25,7 +25,7 @@ public class Review {
         this.timestamp = timestamp;
     }
 
-    // --- Getter & Setter (Bắt buộc) ---
+    // --- Getter & Setter ---
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
