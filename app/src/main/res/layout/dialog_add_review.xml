@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Viết đánh giá của bạn"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"/>
+
+    <RatingBar
+        android:id="@+id/rating_bar_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:stepSize="1.0"
+        android:numStars="5"
+        android:progressTint="#FFD700"/>
+
+    <EditText
+        android:id="@+id/edt_review_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Chia sẻ trải nghiệm của bạn..."
+        android:minLines="3"
+        android:background="@android:drawable/editbox_background"/>
+
+    <Button
+        android:id="@+id/btn_submit_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Gửi đánh giá"
+        android:backgroundTint="#009688"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
