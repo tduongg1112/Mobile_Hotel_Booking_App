@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvHotels;
     private HomeAdapter hotelAdapter;
     private List<Hotel> hotelList;
-    private List<Hotel> originalHotelList; // Danh sách gốc để lọc
+    private List<Hotel> originalHotelList;
 
     @Nullable
     @Override
@@ -51,7 +52,6 @@ public class HomeFragment extends Fragment {
         setupRecyclerView();
         loadDefaultHotels();
 
-        // Xử lý sự kiện khi nhấn Enter trên bàn phím để tìm kiếm
         etLocation.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch();
@@ -74,52 +74,31 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDefaultHotels() {
-        // Sắp xếp theo tên để danh sách đẹp hơn
         db.collection("hotels").orderBy("name").get()
                 .addOnSuccessListener(snapshots -> {
                     hotelList.clear();
-                    originalHotelList.clear(); // Xóa danh sách gốc cũ
-
+                    originalHotelList.clear();
                     for (QueryDocumentSnapshot doc : snapshots) {
                         Hotel hotel = doc.toObject(Hotel.class);
                         hotel.setId(doc.getId());
-
                         hotelList.add(hotel);
-                        originalHotelList.add(hotel); // QUAN TRỌNG: Lưu bản sao để dùng cho bộ lọc
+                        originalHotelList.add(hotel);
                     }
                     hotelAdapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    if (getContext() != null)
-                        Toast.makeText(getContext(), "Lỗi tải dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
     private void performSearch() {
         String keyword = etLocation.getText().toString().trim().toLowerCase();
-
-        // Nếu từ khóa rỗng thì tải lại mặc định
-        if (keyword.isEmpty()) {
-            loadDefaultHotels();
-            return;
-        }
-
-        db.collection("hotels")
-                .whereArrayContains("searchKeywords", keyword)
-                .get()
+        db.collection("hotels").whereArrayContains("searchKeywords", keyword).get()
                 .addOnSuccessListener(snapshots -> {
                     hotelList.clear();
-                    originalHotelList.clear(); // Reset danh sách gốc theo kết quả tìm kiếm mới
-
                     for (QueryDocumentSnapshot doc : snapshots) {
                         Hotel hotel = doc.toObject(Hotel.class);
                         hotel.setId(doc.getId());
-
                         hotelList.add(hotel);
-                        originalHotelList.add(hotel); // Lưu lại kết quả tìm kiếm để lọc trên kết quả này
                     }
                     hotelAdapter.notifyDataSetChanged();
-
                     if (hotelList.isEmpty() && getContext() != null) {
                         Toast.makeText(getContext(), "Không tìm thấy kết quả", Toast.LENGTH_SHORT).show();
                     }
@@ -137,66 +116,29 @@ public class HomeFragment extends Fragment {
 
         if (btnApply != null) btnApply.setOnClickListener(v -> {
             List<String> selectedAmenities = new ArrayList<>();
-            // Truyền từ khóa (không quan trọng hoa thường vì hàm applyFilter sẽ xử lý)
-            if (cbWifi != null && cbWifi.isChecked()) selectedAmenities.add("wifi");
-            if (cbPool != null && cbPool.isChecked()) selectedAmenities.add("pool");
-
+            if (cbWifi.isChecked()) selectedAmenities.add("WIFI");
+            if (cbPool.isChecked()) selectedAmenities.add("POOL");
             applyFilter(selectedAmenities);
             dialog.dismiss();
         });
         dialog.show();
     }
 
-    // --- HÀM LỌC ĐÃ ĐƯỢC SỬA LẠI (QUAN TRỌNG NHẤT) ---
     private void applyFilter(List<String> requiredAmenities) {
-        // 1. Nếu không chọn gì -> Trả về danh sách gốc (originalHotelList)
-        if (requiredAmenities == null || requiredAmenities.isEmpty()) {
+        if (requiredAmenities.isEmpty()) {
             hotelList.clear();
-            if (originalHotelList != null) {
-                hotelList.addAll(originalHotelList);
-            }
+            hotelList.addAll(originalHotelList);
             hotelAdapter.notifyDataSetChanged();
             return;
         }
-
-        List<Hotel> filteredList = new ArrayList<>();
-
-        // 2. Chuyển các yêu cầu lọc về chữ thường (Ví dụ: "WIFI" -> "wifi")
-        List<String> reqLower = new ArrayList<>();
-        for (String req : requiredAmenities) {
-            reqLower.add(req.toLowerCase().trim());
-        }
-
-        // 3. Duyệt danh sách gốc để kiểm tra
-        if (originalHotelList != null) {
-            for (Hotel hotel : originalHotelList) {
-                List<String> hotelAmenities = hotel.getAmenities();
-
-                // Chỉ xử lý nếu khách sạn có danh sách tiện ích
-                if (hotelAmenities != null) {
-                    // Tạo một danh sách tiện ích của khách sạn dạng chữ thường để so sánh
-                    List<String> hotelAmenitiesLower = new ArrayList<>();
-                    for (String a : hotelAmenities) {
-                        hotelAmenitiesLower.add(a.toLowerCase().trim());
-                    }
-
-                    // Kiểm tra: Khách sạn phải chứa TẤT CẢ các tiện ích yêu cầu
-                    // (Ví dụ: Yêu cầu Wifi + Pool -> Khách sạn phải có cả 2)
-                    if (hotelAmenitiesLower.containsAll(reqLower)) {
-                        filteredList.add(hotel);
-                    }
-                }
+        List<Hotel> filtered = new ArrayList<>();
+        for (Hotel h : originalHotelList) {
+            if (h.getAmenities() != null && h.getAmenities().containsAll(requiredAmenities)) {
+                filtered.add(h);
             }
         }
-
-        // 4. Cập nhật kết quả lên màn hình
         hotelList.clear();
-        hotelList.addAll(filteredList);
+        hotelList.addAll(filtered);
         hotelAdapter.notifyDataSetChanged();
-
-        // Thông báo nếu không tìm thấy
-        if (hotelList.isEmpty() && getContext() != null) {
-            Toast.makeText(getContext(), "Không tìm thấy khách sạn phù hợp với bộ lọc", Toast.LENGTH_SHORT).show();
-        }
     }
 }
