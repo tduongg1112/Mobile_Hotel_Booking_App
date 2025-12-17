@@ -4,6 +4,4 @@
     <string name="profile">Profile</string>
     <string name="explore">Explore</string>
     <string name="booking">Booking</string>
-    <string name="desc_notification">Nút thông báo</string>
-    <string name="desc_filter">Nút lọc tìm kiếm</string>
 </resources>

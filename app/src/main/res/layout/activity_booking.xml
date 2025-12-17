@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
-    <!-- 1. HEADER -->
+    <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -14,32 +14,27 @@
         android:background="#FFFFFF"
         android:padding="16dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:padding="4dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_back"
             app:tint="#333333"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Xác nhận đặt phòng"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#333333"
             android:gravity="center"
-            android:layout_marginEnd="32dp"/> <!-- Margin để cân giữa title -->
+            android:layout_marginEnd="24dp"/>
     </LinearLayout>
 
-    <!-- 2. NỘI DUNG CUỘN -->
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/header"
@@ -51,22 +46,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Card 1: Thông tin khách sạn -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thông tin khách sạn"
-                android:textStyle="bold"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"/>
-
+            <!-- Thông tin khách sạn -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,67 +63,41 @@
 
                     <TextView
                         android:id="@+id/tvHotelName"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Khách sạn Kim Liên"
+                        android:text="Tên khách sạn"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="#333333"/>
 
                     <TextView
                         android:id="@+id/tvHotelAddress"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7 P. Đào Duy Anh, Phương Liên, Đống Đa, Hà Nội"
+                        android:text="Địa chỉ khách sạn"
                         android:textColor="#888888"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#EEEEEE"
-                        android:layout_marginVertical="12dp"/>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginVertical="12dp"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tvRoomName"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Loại phòng:"
-                            android:textColor="#666666"/>
-
-                        <TextView
-                            android:id="@+id/tvRoomName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Phòng Deluxe (DLX)"
-                            android:textColor="#333333"
-                            android:textStyle="bold"
-                            android:layout_marginStart="8dp"/>
-                    </LinearLayout>
+                        android:text="Loại phòng: Standard"
+                        android:textColor="#333333"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Card 2: Thời gian lưu trú -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thời gian lưu trú"
-                android:textStyle="bold"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp"/>
-
+            <!-- Thông tin ngày tháng -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,67 +106,35 @@
                     android:padding="16dp"
                     android:baselineAligned="false">
 
-                    <!-- Check-in -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nhận phòng"
-                            android:textColor="#888888"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:id="@+id/tvCheckIn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12/12/2025"
-                            android:textColor="#2E4EFF"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginTop="4dp"/>
+                        <TextView android:text="Nhận phòng" android:textColor="#888888" android:textSize="12sp"/>
+                        <TextView android:id="@+id/tvCheckIn" android:text="--" android:textColor="#333333" android:textStyle="bold" android:textSize="16sp"/>
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#EEEEEE"
-                        android:layout_marginHorizontal="12dp"/>
+                    <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#EEEEEE" android:layout_marginHorizontal="12dp"/>
 
-                    <!-- Check-out -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Trả phòng"
-                            android:textColor="#888888"
-                            android:textSize="12sp"/>
-                        <TextView
-                            android:id="@+id/tvCheckOut"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="14/12/2025"
-                            android:textColor="#2E4EFF"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_marginTop="4dp"/>
+                        <TextView android:text="Trả phòng" android:textColor="#888888" android:textSize="12sp"/>
+                        <TextView android:id="@+id/tvCheckOut" android:text="--" android:textColor="#333333" android:textStyle="bold" android:textSize="16sp"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Card 3: Chi tiết thanh toán -->
+            <!-- Chi tiết giá -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chi tiết thanh toán"
                 android:textStyle="bold"
-                android:textColor="#666666"
+                android:textColor="#333333"
                 android:layout_marginBottom="8dp"/>
 
             <androidx.cardview.widget.CardView
@@ -213,8 +142,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="24dp">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -227,19 +155,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginBottom="8dp">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Giá phòng / đêm"
-                            android:textColor="#666666"/>
-                        <TextView
-                            android:id="@+id/tvPricePerNight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="900.000 đ"
-                            android:textColor="#333333"
-                            android:textStyle="bold"/>
+                        <TextView android:text="Giá phòng" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvPricePerNight" android:text="0 đ" android:textColor="#333333"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -247,55 +164,26 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginBottom="8dp">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Số đêm"
-                            android:textColor="#666666"/>
-                        <TextView
-                            android:id="@+id/tvTotalDays"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 đêm"
-                            android:textColor="#333333"
-                            android:textStyle="bold"/>
+                        <TextView android:text="Số đêm" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvTotalDays" android:text="1 đêm" android:textColor="#333333"/>
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#EEEEEE"
-                        android:layout_marginVertical="8dp"/>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginVertical="8dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tổng cộng"
-                            android:textStyle="bold"
-                            android:textColor="#333333"
-                            android:textSize="16sp"/>
-                        <TextView
-                            android:id="@+id/tvTotalPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1.800.000 đ"
-                            android:textStyle="bold"
-                            android:textColor="#F44336"
-                            android:textSize="20sp"/>
+                        <TextView android:text="Tổng cộng" android:textStyle="bold" android:textColor="#333333" android:layout_weight="1"/>
+                        <TextView android:id="@+id/tvTotalPrice" android:text="0 đ" android:textStyle="bold" android:textColor="#2E4EFF" android:textSize="18sp"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
-    <!-- 3. BOTTOM BAR (Nút Thanh toán) -->
+    <!-- Bottom Bar: Nút Đặt -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
@@ -303,28 +191,26 @@
         android:orientation="vertical"
         android:background="#FFFFFF"
         android:padding="16dp"
-        android:elevation="16dp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Đặt phòng"
-            android:background="@drawable/bg_blue_rounded"
-            android:textColor="#FFFFFF"
+            android:text="Thanh toán &amp; Đặt phòng"
+            android:backgroundTint="#2E4EFF"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- Loading -->
+    <!-- Loading (Ẩn mặc định) -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
