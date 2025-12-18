@@ -13,6 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.activities.ReviewActivity;
 import com.example.hotelbookingapp.models.Booking;
@@ -85,8 +88,28 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             holder.tvStatus.setText("Đang chờ");
         }
 
-        // Ảnh demo
-        holder.imgCard.setImageResource(R.drawable.img_map_background);
+        // Logic to load hotel image
+        int resId = context.getResources().getIdentifier(
+                booking.getHotelId(), "drawable", context.getPackageName());
+
+        if (resId != 0) {
+            holder.imgCard.setImageResource(resId);
+        } else {
+            String urlToLoad = booking.getHotelImage();
+            if (urlToLoad != null && !urlToLoad.isEmpty()) {
+                GlideUrl glideUrl = new GlideUrl(urlToLoad, new LazyHeaders.Builder()
+                        .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+                        .build());
+
+                Glide.with(context)
+                        .load(glideUrl)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.error_image)
+                        .into(holder.imgCard);
+            } else {
+                holder.imgCard.setImageResource(R.drawable.placeholder_image);
+            }
+        }
 
         // --- 2. LOGIC ẨN HIỆN NÚT ---
         String status = booking.getStatus();
