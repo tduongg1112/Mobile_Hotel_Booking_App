@@ -15,6 +15,7 @@ import androidx.core.util.Pair;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.models.Booking;
 import com.example.hotelbookingapp.models.Hotel;
+import com.example.hotelbookingapp.models.NotificationItem;
 import com.example.hotelbookingapp.models.Room;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -31,6 +32,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
+import android.util.Log;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -201,6 +203,22 @@ public class BookingActivity extends AppCompatActivity {
                 .addOnSuccessListener(doc -> {
                     if (progressBar != null) progressBar.setVisibility(View.GONE);
                     Toast.makeText(this, "Đặt phòng thành công!", Toast.LENGTH_LONG).show();
+
+                    // Create notification
+                    String userId = user.getUid();
+                    String title = "Đặt phòng thành công!";
+                    String body = "Bạn đã đặt thành công phòng " + currentRoom.getName() + " tại khách sạn " + currentHotel.getName() + ".";
+                    NotificationItem notification = new NotificationItem(userId, title, body, new java.util.Date());
+
+                    FirebaseFirestore.getInstance().collection("notifications")
+                        .add(notification)
+                        .addOnSuccessListener(notificationDoc -> {
+                            Log.d("BookingActivity", "Notification created for successful booking.");
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e("BookingActivity", "Error creating notification", e);
+                        });
+
                     // Có thể chuyển sang màn hình thành công ở đây
                     // Intent intent = new Intent(BookingActivity.this, BookingSuccessActivity.class);
                     // startActivity(intent);

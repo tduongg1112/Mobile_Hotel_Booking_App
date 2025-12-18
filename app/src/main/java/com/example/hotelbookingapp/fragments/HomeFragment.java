@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment {
         etLocation = view.findViewById(R.id.etLocation);
         btnFilter = view.findViewById(R.id.btnFilter);
         rvHotels = view.findViewById(R.id.rvHotels);
+        ImageView btnNotification = view.findViewById(R.id.btn_notification);
 
         setupRecyclerView();
         loadDefaultHotels();
@@ -61,6 +63,13 @@ public class HomeFragment extends Fragment {
         });
 
         btnFilter.setOnClickListener(v -> showFilterDialog());
+
+        btnNotification.setOnClickListener(v -> {
+            if (getContext() != null) {
+                android.content.Intent intent = new android.content.Intent(getContext(), com.example.hotelbookingapp.activities.NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
