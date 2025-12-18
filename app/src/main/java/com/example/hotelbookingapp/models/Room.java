@@ -16,11 +16,16 @@ public class Room implements Serializable { // Bắt buộc có Serializable đ�
 
     private String image;
     private List<String> features;
+    private int quantity = 1; // Mặc định là 1 nếu không có dữ liệu
 
     // Constructor rỗng bắt buộc cho Firestore
     public Room() { }
 
     // --- Getters & Setters ---
+
+    public int getQuantity() { return quantity; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }

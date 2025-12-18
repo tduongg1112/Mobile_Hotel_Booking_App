@@ -26,12 +26,15 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import android.util.Log;
@@ -178,6 +181,56 @@ public class BookingActivity extends AppCompatActivity {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         btnConfirm.setEnabled(false);
 
+        checkRoomAvailability();
+    }
+
+    private void checkRoomAvailability() {
+        FirebaseFirestore.getInstance().collection("bookings")
+                .whereEqualTo("hotelId", currentHotel.getId())
+                .whereEqualTo("roomName", currentRoom.getName())
+                .whereEqualTo("status", "CONFIRMED")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    int bookedCount = 0;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                        Booking existingBooking = doc.toObject(Booking.class);
+                        try {
+                            LocalDate existingCheckIn = LocalDate.parse(existingBooking.getCheckInDate(), formatter);
+                            LocalDate existingCheckOut = LocalDate.parse(existingBooking.getCheckOutDate(), formatter);
+
+                            // Check for overlap: (StartA < EndB) and (EndA > StartB)
+                            if (checkInDate.isBefore(existingCheckOut) && checkOutDate.isAfter(existingCheckIn)) {
+                                bookedCount++;
+                            }
+                        } catch (Exception e) {
+                            Log.e("BookingActivity", "Error parsing date from booking: " + doc.getId(), e);
+                        }
+                    }
+
+                    if (bookedCount >= currentRoom.getQuantity()) {
+                        // Not available
+                        Toast.makeText(this, "Hết phòng trong khoảng ngày này. Vui lòng chọn lại.", Toast.LENGTH_LONG).show();
+                        if (progressBar != null) progressBar.setVisibility(View.GONE);
+                        btnConfirm.setEnabled(true);
+                    } else {
+                        // Available, proceed to book
+                        proceedWithBooking();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failure
+                    Toast.makeText(this, "Lỗi khi kiểm tra phòng: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    btnConfirm.setEnabled(true);
+                });
+    }
+
+    private void proceedWithBooking() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return; // Should not happen due to earlier check
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String strCheckIn = sdf.format(Date.from(checkInDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         String strCheckOut = sdf.format(Date.from(checkOutDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
@@ -213,13 +266,9 @@ public class BookingActivity extends AppCompatActivity {
                     NotificationItem notification = new NotificationItem(userId, title, body, new java.util.Date());
 
                     FirebaseFirestore.getInstance().collection("notifications")
-                        .add(notification)
-                        .addOnSuccessListener(notificationDoc -> {
-                            Log.d("BookingActivity", "Notification created for successful booking.");
-                        })
-                        .addOnFailureListener(e -> {
-                            Log.e("BookingActivity", "Error creating notification", e);
-                        });
+                            .add(notification)
+                            .addOnSuccessListener(notificationDoc -> Log.d("BookingActivity", "Notification created for successful booking."))
+                            .addOnFailureListener(e -> Log.e("BookingActivity", "Error creating notification", e));
 
                     // Chuyển sang màn hình thành công
                     Intent intent = new Intent(BookingActivity.this, BookingSuccessActivity.class);
