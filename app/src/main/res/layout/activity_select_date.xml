@@ -98,12 +98,16 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/dateSelectionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,20 +118,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chọn ngày nhận phòng:"
+                        android:text="Ngày"
                         android:textStyle="bold"
-                        android:layout_marginBottom="8dp"/>
-
-                    <CalendarView
-                        android:id="@+id/calendarView"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp" />
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="12dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="16dp">
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -144,7 +144,7 @@
                                 android:id="@+id/tvCheckIn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="--"
+                                android:text="-- / -- / ----"
                                 android:textStyle="bold"
                                 android:textColor="#333"
                                 android:textSize="16sp"/>
@@ -158,19 +158,26 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Trả phòng (1 đêm)"
+                                android:text="Trả phòng"
                                 android:textSize="12sp"
                                 android:textColor="#888"/>
                             <TextView
                                 android:id="@+id/tvCheckOut"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="--"
+                                android:text="-- / -- / ----"
                                 android:textStyle="bold"
                                 android:textColor="#333"
                                 android:textSize="16sp"/>
                         </LinearLayout>
                     </LinearLayout>
+                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nhấn để chọn ngày"
+                        android:gravity="center"
+                        android:textColor="@color/primary_blue"
+                        android:layout_marginTop="8dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
