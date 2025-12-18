@@ -12,11 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.models.Booking;
+import com.example.hotelbookingapp.models.NotificationItem;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import android.util.Log;
 
 public class CancelBookingActivity extends AppCompatActivity {
 
@@ -149,6 +153,22 @@ public class CancelBookingActivity extends AppCompatActivity {
                 .update("status", "CANCELLED")
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Yêu cầu hủy phòng đã được gửi thành công!", Toast.LENGTH_LONG).show();
+
+                    // Create notification
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String title = "Hủy phòng thành công";
+                    String body = "Bạn đã hủy thành công đặt phòng tại " + currentBooking.getHotelName() + ".";
+                    NotificationItem notification = new NotificationItem(userId, title, body, new Date());
+
+                    FirebaseFirestore.getInstance().collection("notifications")
+                        .add(notification)
+                        .addOnSuccessListener(notificationDoc -> {
+                            Log.d("CancelBookingActivity", "Notification created for successful cancellation.");
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e("CancelBookingActivity", "Error creating notification", e);
+                        });
+
                     finish(); // Quay lại màn hình trước, onResume của MyBookingActivity sẽ được gọi
                 })
                 .addOnFailureListener(e -> {

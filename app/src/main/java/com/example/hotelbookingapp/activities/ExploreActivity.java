@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.hotelbookingapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.hotelbookingapp.activities.HomeActivity;
+import com.example.hotelbookingapp.activities.MyBookingActivity;
+import com.example.hotelbookingapp.activities.ProfileActivity;
 
 public class ExploreActivity extends AppCompatActivity {
 

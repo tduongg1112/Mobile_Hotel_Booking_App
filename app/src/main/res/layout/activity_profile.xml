@@ -155,6 +155,20 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="16dp"/>
 
+            <!-- Nút Admin Panel (Ẩn mặc định) -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_admin_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Admin Panel"
+                android:background="@drawable/bg_button_blue"
+                android:backgroundTint="#FFC107"
+                android:textColor="#000000"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"/>
+
             <!-- Nút Đăng xuất -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout"
