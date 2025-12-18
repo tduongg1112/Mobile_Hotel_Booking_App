@@ -13,31 +13,27 @@ import com.example.hotelbookingapp.models.Hotel;
 import com.example.hotelbookingapp.utils.Constants;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class SearchActivity extends AppCompatActivity {
-
     private EditText edtSearch;
     private RecyclerView rvSearchResults;
     private HomeAdapter hotelAdapter;
-    private FirebaseFirestore db;
     private List<Hotel> allHotelsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Đảm bảo bạn đã có file activity_search.xml (xem mục số 4 bên dưới)
         setContentView(R.layout.activity_search);
 
-        db = FirebaseFirestore.getInstance();
-
-        // Ánh xạ Views (ID phải khớp với activity_search.xml)
         edtSearch = findViewById(R.id.edtSearchInput);
         rvSearchResults = findViewById(R.id.rvSearchResults);
 
         setupRecyclerView();
-        loadAllHotels(); // Tải dữ liệu về trước
+        loadAllHotels();
         setupSearchListener();
     }
 
@@ -48,54 +44,54 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void loadAllHotels() {
-        // Dùng Constants.COLLECTION_HOTELS nếu có, hoặc dùng chuỗi cứng "hotels"
         String collectionName = (Constants.COLLECTION_HOTELS != null) ? Constants.COLLECTION_HOTELS : "hotels";
-
-        db.collection(collectionName)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
+        FirebaseFirestore.getInstance().collection(collectionName).get()
+                .addOnSuccessListener(snapshots -> {
                     allHotelsList.clear();
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    for (QueryDocumentSnapshot doc : snapshots) {
                         Hotel hotel = doc.toObject(Hotel.class);
                         hotel.setId(doc.getId());
                         allHotelsList.add(hotel);
                     }
-                    // Ban đầu hiển thị toàn bộ danh sách
                     hotelAdapter.setHotelList(allHotelsList);
                 });
     }
 
     private void setupSearchListener() {
         edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filterHotels(s.toString());
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
+            @Override public void afterTextChanged(Editable s) {}
         });
     }
 
     private void filterHotels(String text) {
         List<Hotel> filteredList = new ArrayList<>();
-        // Nếu ô tìm kiếm rỗng, hiển thị lại toàn bộ
-        if (text == null || text.isEmpty()) {
+        if (text == null || text.trim().isEmpty()) {
             filteredList.addAll(allHotelsList);
         } else {
-            String searchText = text.toLowerCase().trim();
+            // Chuẩn hóa từ khóa: Viết thường + Bỏ dấu
+            String query = removeAccent(text.toLowerCase().trim());
             for (Hotel item : allHotelsList) {
-                // Logic tìm kiếm: Tìm theo tên HOẶC địa điểm
-                if ((item.getName() != null && item.getName().toLowerCase().contains(searchText)) ||
-                        (item.getLocation() != null && item.getLocation().toLowerCase().contains(searchText))) {
+                String hotelName = (item.getName() != null) ? removeAccent(item.getName().toLowerCase()) : "";
+                String hotelLoc = (item.getLocation() != null) ? removeAccent(item.getLocation().toLowerCase()) : "";
+
+                // Logic Core: Tìm theo Tên HOẶC Địa điểm không dấu
+                if (hotelName.contains(query) || hotelLoc.contains(query)) {
                     filteredList.add(item);
                 }
             }
         }
-        // Gọi hàm update trong Adapter
         hotelAdapter.setHotelList(filteredList);
+    }
+
+    // Hàm chuẩn hóa tiếng Việt: Biến "Khách Sạn" thành "khach san"
+    private String removeAccent(String s) {
+        if (s == null) return "";
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("").replace('đ', 'd').replace('Đ', 'D');
     }
 }
