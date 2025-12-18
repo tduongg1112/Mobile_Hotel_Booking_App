@@ -9,7 +9,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,10 +20,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hotelbookingapp.R;
 import com.example.hotelbookingapp.adapters.HomeAdapter;
 import com.example.hotelbookingapp.models.Hotel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -37,6 +42,9 @@ public class HomeFragment extends Fragment {
     private HomeAdapter hotelAdapter;
     private List<Hotel> hotelList;
     private List<Hotel> originalHotelList; // Danh sách gốc để lọc
+    private FirebaseAuth mAuth;
+    private ImageView imgAvatar;
+    private TextView tvGreeting;
 
     @Nullable
     @Override
@@ -44,12 +52,16 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         etLocation = view.findViewById(R.id.etLocation);
         btnFilter = view.findViewById(R.id.btnFilter);
         rvHotels = view.findViewById(R.id.rvHotels);
+        imgAvatar = view.findViewById(R.id.imgAvatar);
+        tvGreeting = view.findViewById(R.id.tvGreeting);
 
         setupRecyclerView();
         loadDefaultHotels();
+        loadUserProfile();
 
         // Xử lý sự kiện khi nhấn Enter trên bàn phím để tìm kiếm
         etLocation.setOnEditorActionListener((v, actionId, event) -> {
@@ -63,6 +75,47 @@ public class HomeFragment extends Fragment {
         btnFilter.setOnClickListener(v -> showFilterDialog());
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUserProfile();
+    }
+
+    private void loadUserProfile() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            db.collection("users").document(user.getUid()).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (getContext() == null) {
+                            return; // Fragment is not attached
+                        }
+                        if (documentSnapshot.exists()) {
+                            String fullname = documentSnapshot.getString("fullname");
+                            if (fullname != null && !fullname.isEmpty()) {
+                                tvGreeting.setText("Xin chào, " + fullname + "!");
+                            } else {
+                                tvGreeting.setText("Xin chào!");
+                            }
+
+                            String avatarUrl = documentSnapshot.getString("avatarUrl");
+                            if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                                Glide.with(getContext()).load(avatarUrl).circleCrop().into(imgAvatar);
+                            } else {
+                                imgAvatar.setImageResource(R.drawable.ic_user);
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("HomeFragment", "Error loading user profile", e);
+                        tvGreeting.setText("Xin chào, Bạn!");
+                        imgAvatar.setImageResource(R.drawable.ic_user);
+                    });
+        } else {
+            tvGreeting.setText("Xin chào, Bạn!");
+            imgAvatar.setImageResource(R.drawable.ic_user);
+        }
     }
 
     private void setupRecyclerView() {
