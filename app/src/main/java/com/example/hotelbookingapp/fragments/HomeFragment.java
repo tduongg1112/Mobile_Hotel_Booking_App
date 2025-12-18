@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment {
         rvHotels = view.findViewById(R.id.rvHotels);
         imgAvatar = view.findViewById(R.id.imgAvatar);
         tvGreeting = view.findViewById(R.id.tvGreeting);
+        ImageView btnNotification = view.findViewById(R.id.btn_notification);
 
         setupRecyclerView();
         loadDefaultHotels();
@@ -73,6 +74,13 @@ public class HomeFragment extends Fragment {
         });
 
         btnFilter.setOnClickListener(v -> showFilterDialog());
+
+        btnNotification.setOnClickListener(v -> {
+            if (getContext() != null) {
+                android.content.Intent intent = new android.content.Intent(getContext(), com.example.hotelbookingapp.activities.NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
