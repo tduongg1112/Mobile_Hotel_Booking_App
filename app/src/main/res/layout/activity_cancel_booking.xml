@@ -108,6 +108,7 @@
                             android:textColor="#333333"/>
 
                         <TextView
+                            android:id="@+id/tvBookingDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12/12/2025 - 14/12/2025"
@@ -116,6 +117,7 @@
                             android:layout_marginTop="4dp"/>
 
                         <TextView
+                            android:id="@+id/tvBookingPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1.800.000 đ"

@@ -1,8 +1,9 @@
 package com.example.hotelbookingapp.models;
 
+import java.io.Serializable;
 import com.google.firebase.Timestamp;
 
-public class Booking {
+public class Booking implements Serializable {
     private String bookingId; // Đây là ID của booking (Document ID từ Firestore)
     private String userId;
     private String hotelId;
@@ -14,7 +15,7 @@ public class Booking {
     private String checkOutDate;
     private double totalPrice;
     private String status; // "CONFIRMED", "PENDING"
-    private Timestamp timestamp;
+    private transient Timestamp timestamp;
 
     public Booking() {}
 

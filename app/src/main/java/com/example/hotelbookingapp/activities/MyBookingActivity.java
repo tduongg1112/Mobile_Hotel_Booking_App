@@ -137,8 +137,7 @@ public class MyBookingActivity extends AppCompatActivity implements BookingAdapt
         // Chuyển sang màn hình hủy phòng hoặc xử lý hủy trực tiếp tại đây
         // Đảm bảo bạn đã có CancelBookingActivity nếu dùng Intent
         Intent intent = new Intent(MyBookingActivity.this, CancelBookingActivity.class);
-        intent.putExtra("BOOKING_ID", booking.getId());
-        intent.putExtra("HOTEL_NAME", booking.getHotelName());
+        intent.putExtra("booking_object", booking);
         startActivity(intent);
     }
 }

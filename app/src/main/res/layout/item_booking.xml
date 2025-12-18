@@ -48,8 +48,7 @@
                     android:text="Đã xác nhận"
                     android:textSize="12sp"
                     android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    android:background="@drawable/bg_status_confirmed"/>
+                    android:paddingVertical="4dp"/>
             </LinearLayout>
 
             <TextView

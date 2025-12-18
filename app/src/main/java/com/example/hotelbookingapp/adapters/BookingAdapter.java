@@ -80,12 +80,15 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         if ("CONFIRMED".equalsIgnoreCase(booking.getStatus()) || "Đã xác nhận".equals(booking.getStatus())) {
             holder.tvStatus.setTextColor(Color.parseColor("#4CAF50")); // Xanh lá
             holder.tvStatus.setText("Đã xác nhận");
+            holder.tvStatus.setBackgroundResource(R.drawable.bg_status_confirmed);
         } else if ("CANCELLED".equalsIgnoreCase(booking.getStatus()) || "Đã hủy".equals(booking.getStatus())) {
             holder.tvStatus.setTextColor(Color.RED);
             holder.tvStatus.setText("Đã hủy");
+            holder.tvStatus.setBackgroundResource(R.drawable.bg_status_cancelled);
         } else {
             holder.tvStatus.setTextColor(Color.parseColor("#FF9800")); // Cam
             holder.tvStatus.setText("Đang chờ");
+            holder.tvStatus.setBackgroundResource(0); // No background for pending
         }
 
         // Logic to load hotel image
@@ -114,20 +117,22 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         // --- 2. LOGIC ẨN HIỆN NÚT ---
         String status = booking.getStatus();
 
-        // Kiểm tra lỏng lẻo hơn (bao gồm cả chữ thường/hoa)
-        if ("CONFIRMED".equalsIgnoreCase(status) || "COMPLETED".equalsIgnoreCase(status)) {
-            // Đơn thành công -> Hiện Đánh giá
-            holder.btnRate.setVisibility(View.VISIBLE);
-            holder.btnCancel.setVisibility(View.GONE);
-        } else if ("CANCELLED".equalsIgnoreCase(status)) {
-            // Đã hủy -> Ẩn hết
-            holder.btnRate.setVisibility(View.GONE);
-            holder.btnCancel.setVisibility(View.GONE);
-        } else {
-            // Đang chờ -> Hiện Hủy
-            holder.btnRate.setVisibility(View.GONE);
+        // Ẩn cả hai nút mặc định
+        holder.btnRate.setVisibility(View.GONE);
+        holder.btnCancel.setVisibility(View.GONE);
+
+        if ("CONFIRMED".equalsIgnoreCase(status) || "Đã xác nhận".equals(status)) {
+            // Đơn đã xác nhận: Cho phép Hủy và Đánh giá
             holder.btnCancel.setVisibility(View.VISIBLE);
+            holder.btnRate.setVisibility(View.VISIBLE);
+        } else if ("COMPLETED".equalsIgnoreCase(status)) {
+            // Đơn đã hoàn thành: Chỉ cho phép Đánh giá
+            holder.btnRate.setVisibility(View.VISIBLE);
+        } else if ("PENDING".equalsIgnoreCase(status) || "Đang chờ".equalsIgnoreCase(status)) {
+            // Đơn đang chờ: Chỉ cho phép Hủy
+             holder.btnCancel.setVisibility(View.VISIBLE);
         }
+        // Với trạng thái "CANCELLED", cả 2 nút sẽ bị ẩn
 
         // --- 3. SỰ KIỆN NÚT ---
         holder.btnRate.setOnClickListener(v -> {
