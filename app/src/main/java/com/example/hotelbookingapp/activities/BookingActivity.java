@@ -1,5 +1,6 @@
 package com.example.hotelbookingapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.util.Pair;
 
 import com.example.hotelbookingapp.R;
+import com.example.hotelbookingapp.activities.BookingSuccessActivity;
 import com.example.hotelbookingapp.models.Booking;
 import com.example.hotelbookingapp.models.Hotel;
 import com.example.hotelbookingapp.models.NotificationItem;
@@ -219,9 +221,9 @@ public class BookingActivity extends AppCompatActivity {
                             Log.e("BookingActivity", "Error creating notification", e);
                         });
 
-                    // Có thể chuyển sang màn hình thành công ở đây
-                    // Intent intent = new Intent(BookingActivity.this, BookingSuccessActivity.class);
-                    // startActivity(intent);
+                    // Chuyển sang màn hình thành công
+                    Intent intent = new Intent(BookingActivity.this, BookingSuccessActivity.class);
+                    startActivity(intent);
                     finish();
                 })
                 .addOnFailureListener(e -> {
