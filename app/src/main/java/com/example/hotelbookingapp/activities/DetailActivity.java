@@ -120,6 +120,18 @@ public class DetailActivity extends AppCompatActivity {
                 imgHeader.setImageResource(R.drawable.placeholder_image);
             }
         }
+
+        // --- LOGIC CHO NÚT BẢN ĐỒ ---
+        if (currentHotel.getGeoPoint() != null) {
+            tvLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0);
+            tvLocation.setOnClickListener(v -> {
+                android.content.Intent mapIntent = new android.content.Intent(this, MapActivity.class);
+                mapIntent.putExtra("latitude", currentHotel.getGeoPoint().getLatitude());
+                mapIntent.putExtra("longitude", currentHotel.getGeoPoint().getLongitude());
+                mapIntent.putExtra("hotelName", currentHotel.getName());
+                startActivity(mapIntent);
+            });
+        }
     }
 
     private void fetchRooms(String hotelId) {

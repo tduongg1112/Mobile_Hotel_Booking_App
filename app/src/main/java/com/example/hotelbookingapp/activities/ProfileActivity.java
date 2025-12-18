@@ -1,7 +1,9 @@
+
 package com.example.hotelbookingapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView tvName, tvEmail, tvRole, tvPhone;
-    private Button btnLogout, btnEditProfile;
+    private Button btnLogout, btnEditProfile, btnAdminPanel;
     private ImageView imgAvatar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -90,6 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
         imgAvatar = findViewById(R.id.img_profile_avatar);
         btnLogout = findViewById(R.id.btn_logout);
         btnEditProfile = findViewById(R.id.btn_goto_edit);
+        btnAdminPanel = findViewById(R.id.btn_admin_panel);
     }
 
     private void setupEvents() {
@@ -102,6 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+        btnAdminPanel.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, AdminActivity.class)));
     }
 
     private void loadUserProfile() {
@@ -111,8 +115,16 @@ public class ProfileActivity extends AppCompatActivity {
                     if (documentSnapshot.exists()) {
                         tvName.setText(documentSnapshot.getString("fullname"));
                         tvEmail.setText(documentSnapshot.getString("email"));
-                        tvRole.setText(documentSnapshot.getString("role"));
+                        String role = documentSnapshot.getString("role");
+                        tvRole.setText(role);
                         tvPhone.setText(documentSnapshot.getString("phone"));
+
+                        if ("ADMIN".equals(role)) {
+                            btnAdminPanel.setVisibility(View.VISIBLE);
+                        } else {
+                            btnAdminPanel.setVisibility(View.GONE);
+                        }
+
                         String avatarUrl = documentSnapshot.getString("avatarUrl");
                         if (avatarUrl != null && !avatarUrl.isEmpty()) {
                             Glide.with(this).load(avatarUrl).circleCrop().into(imgAvatar);
