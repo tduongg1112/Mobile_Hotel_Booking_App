@@ -153,35 +153,60 @@
 
                 <LinearLayout android:id="@+id/layoutHanoi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_marginEnd="20dp" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="30dp" app:cardElevation="0dp">
-                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ic_launcher_background" />
+                                            <ImageView
+                                                android:id="@+id/imgHanoi"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_launcher_background" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hà Nội" android:textSize="12sp" android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
                 <LinearLayout android:id="@+id/layoutDanang" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_marginEnd="20dp" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="30dp" app:cardElevation="0dp">
-                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ic_launcher_background" />
+                                            <ImageView
+                                                android:id="@+id/imgDanang"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_launcher_background" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Đà Nẵng" android:textSize="12sp" android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
                 <LinearLayout android:id="@+id/layoutHCM" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_marginEnd="20dp" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="30dp" app:cardElevation="0dp">
-                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ic_launcher_background" />
+                                            <ImageView
+                                                android:id="@+id/imgHCM"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_launcher_background" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TP. HCM" android:textSize="12sp" android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
                 <LinearLayout android:id="@+id/layoutDaLat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_marginEnd="20dp" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="30dp" app:cardElevation="0dp">
-                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ic_launcher_background" />
+                                            <ImageView
+                                                android:id="@+id/imgDaLat"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_launcher_background" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Đà Lạt" android:textSize="12sp" android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
                 <LinearLayout android:id="@+id/layoutVungTau" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_marginEnd="20dp" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
                     <androidx.cardview.widget.CardView android:layout_width="60dp" android:layout_height="60dp" app:cardCornerRadius="30dp" app:cardElevation="0dp">
-                        <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:src="@drawable/ic_launcher_background" />
+                                            <ImageView
+                                                android:id="@+id/imgVungTau"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:scaleType="centerCrop"
+                                                android:src="@drawable/ic_launcher_background" />
                     </androidx.cardview.widget.CardView>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vũng Tàu" android:textSize="12sp" android:layout_marginTop="4dp"/>
                 </LinearLayout>

@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
     private List<Hotel> originalHotelList;
     private ImageView imgAvatar;
     private TextView tvGreeting;
+    private ImageView imgHanoi, imgDanang, imgHCM, imgDaLat, imgVungTau;
 
     // --- KHAI BÁO CÁC NÚT ĐỊA ĐIỂM ---
     private LinearLayout layoutNearMe, layoutHanoi, layoutDanang, layoutHCM, layoutDaLat, layoutVungTau;
@@ -78,6 +79,18 @@ public class HomeFragment extends Fragment {
         layoutHCM = view.findViewById(R.id.layoutHCM);
         layoutDaLat = view.findViewById(R.id.layoutDaLat);
         layoutVungTau = view.findViewById(R.id.layoutVungTau);
+
+        imgHanoi = view.findViewById(R.id.imgHanoi);
+        imgDanang = view.findViewById(R.id.imgDanang);
+        imgHCM = view.findViewById(R.id.imgHCM);
+        imgDaLat = view.findViewById(R.id.imgDaLat);
+        imgVungTau = view.findViewById(R.id.imgVungTau);
+
+        if (imgHanoi != null) imgHanoi.setImageResource(R.drawable.hanoi);
+        if (imgDanang != null) imgDanang.setImageResource(R.drawable.danang);
+        if (imgHCM != null) imgHCM.setImageResource(R.drawable.hochiminh);
+        if (imgDaLat != null) imgDaLat.setImageResource(R.drawable.dalat);
+        if (imgVungTau != null) imgVungTau.setImageResource(R.drawable.vungtau);
 
         setupRecyclerView();
         loadDefaultHotels();
@@ -116,18 +129,22 @@ public class HomeFragment extends Fragment {
 
     // LOGIC CLICK ĐỊA ĐIỂM
     private void setupCityClickListeners() {
-        if (layoutHanoi != null) layoutHanoi.setOnClickListener(v -> { etLocation.setText("Hà Nội"); performLocalSearch("Hà Nội"); });
-        if (layoutDanang != null) layoutDanang.setOnClickListener(v -> { etLocation.setText("Đà Nẵng"); performLocalSearch("Đà Nẵng"); });
-        if (layoutHCM != null) layoutHCM.setOnClickListener(v -> { etLocation.setText("Hồ Chí Minh"); performLocalSearch("Hồ Chí Minh"); });
-        if (layoutDaLat != null) layoutDaLat.setOnClickListener(v -> { etLocation.setText("Đà Lạt"); performLocalSearch("Đà Lạt"); });
-        if (layoutVungTau != null) layoutVungTau.setOnClickListener(v -> { etLocation.setText("Vũng Tàu"); performLocalSearch("Vũng Tàu"); });
+        if (layoutHanoi != null) layoutHanoi.setOnClickListener(v -> filterHotelsByCity("Hà Nội"));
+        if (layoutDanang != null) layoutDanang.setOnClickListener(v -> filterHotelsByCity("Đà Nẵng"));
+        if (layoutHCM != null) layoutHCM.setOnClickListener(v -> filterHotelsByCity("Hồ Chí Minh"));
+        if (layoutDaLat != null) layoutDaLat.setOnClickListener(v -> filterHotelsByCity("Đà Lạt"));
+        if (layoutVungTau != null) layoutVungTau.setOnClickListener(v -> filterHotelsByCity("Vũng Tàu"));
 
         // Nút Gần đây hiện tại đóng vai trò Reset (Show All)
         if (layoutNearMe != null) layoutNearMe.setOnClickListener(v -> {
-            etLocation.setText("");
-            performLocalSearch("");
+            filterHotelsByCity("");
             Toast.makeText(getContext(), "Đang hiển thị tất cả khách sạn", Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void filterHotelsByCity(String cityName) {
+        etLocation.setText(cityName);
+        performLocalSearch(cityName);
     }
 
     @Override
