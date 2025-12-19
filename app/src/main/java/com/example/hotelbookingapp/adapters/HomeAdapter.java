@@ -47,7 +47,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HotelViewHolde
 
         holder.tvName.setText(hotel.getName());
         holder.tvLocation.setText(hotel.getLocation());
-        holder.tvRating.setText(String.valueOf(hotel.getRatingAverage()));
+        holder.tvRating.setText(String.format(Locale.US, "%.1f", hotel.getRatingAverage()));
 
         NumberFormat currencyFormatter = NumberFormat.getInstance(new Locale("vi", "VN"));
         String priceString = currencyFormatter.format(hotel.getMinPrice()) + " VNĐ";
