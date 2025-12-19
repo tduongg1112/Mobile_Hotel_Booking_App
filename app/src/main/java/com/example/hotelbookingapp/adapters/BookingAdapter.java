@@ -22,6 +22,8 @@ import com.example.hotelbookingapp.models.Booking;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -121,12 +123,31 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.btnRate.setVisibility(View.GONE);
         holder.btnCancel.setVisibility(View.GONE);
 
+        // Kiểm tra xem đã đến ngày nhận phòng chưa
+        boolean isCheckInReached = false;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate checkInDate = LocalDate.parse(booking.getCheckInDate(), formatter);
+            LocalDate today = LocalDate.now();
+            
+            // Nếu hôm nay >= ngày nhận phòng
+            if (!today.isBefore(checkInDate)) {
+                isCheckInReached = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if ("CONFIRMED".equalsIgnoreCase(status) || "Đã xác nhận".equals(status)) {
-            // Đơn đã xác nhận: Cho phép Hủy và Đánh giá
+            // Đơn đã xác nhận: Cho phép Hủy
             holder.btnCancel.setVisibility(View.VISIBLE);
-            holder.btnRate.setVisibility(View.VISIBLE);
+            
+            // Chỉ cho phép Đánh giá nếu đã đến ngày nhận phòng
+            if (isCheckInReached) {
+                holder.btnRate.setVisibility(View.VISIBLE);
+            }
         } else if ("COMPLETED".equalsIgnoreCase(status)) {
-            // Đơn đã hoàn thành: Chỉ cho phép Đánh giá
+            // Đơn đã hoàn thành: Chỉ cho phép Đánh giá (luôn hiện vì đã qua ngày checkin)
             holder.btnRate.setVisibility(View.VISIBLE);
         } else if ("PENDING".equalsIgnoreCase(status) || "Đang chờ".equalsIgnoreCase(status)) {
             // Đơn đang chờ: Chỉ cho phép Hủy
